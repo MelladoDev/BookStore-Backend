@@ -3,4 +3,4 @@ const handleLog = (req, res, next) => {
     next();
   };
   
-  module.exports = handleLog;
+  export default handleLog;
