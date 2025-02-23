@@ -1,11 +1,11 @@
 {
   "name": "scripta-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node --env-file=.env --watch src/index.js"
+    "start": "node app.js",
+    "dev": "npx dotenv -e .env -- node --watch app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^8.0.0"
   }
 }
