@@ -2,11 +2,12 @@ import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
 
-import categoryRoutes from "./src/Routes/categoryRoutes.js"; // Importar rutas de categorías
-
+import authRoutes from "./src/Routes/authRoutes.js";
+import categoryRoutes from "./src/Routes/categoryRoutes.js"; 
 import handleLog from "./src/Middlewares/handleLog.js";
-
 import productRoutes from "./src/Routes/productRoutes.js";
+import userRoutes from "./src/Routes/userRoutes.js";
+import favoritosRoutes from "./src/Routes/favoritosRoutes.js";
 
 config();
 
@@ -15,9 +16,12 @@ app.use(cors());
 app.use(express.json());
 app.use(handleLog);
 
-app.use("/categories", categoryRoutes);
+app.use("scripta-backend/v1/auth", authRoutes);
+app.use("scripta-backend/v1/categories", categoryRoutes);
+app.use("scripta-backend/v1/products", productRoutes);
+app.use("scripta-backend/v1/users", userRoutes);
+app.use("scripta-backend/v1/favoritos", favoritosRoutes);
 
-app.use("/products", productRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
