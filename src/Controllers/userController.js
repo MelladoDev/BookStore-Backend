@@ -27,6 +27,8 @@ class UsuarioController {
       const nuevoUsuario = await UsuarioModel.create(req.body);
       res.status(201).json(nuevoUsuario);
     } catch (err) {
+      console.error("Error al crear usuario:", err);
+    console.error(err.stack);
       res.status(500).json({ error: "Error al crear el usuario" });
     }
   }
