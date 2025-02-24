@@ -16,14 +16,19 @@ app.use(cors());
 app.use(express.json());
 app.use(handleLog);
 
-app.use("scripta-backend/v1/auth", authRoutes);
-app.use("scripta-backend/v1/categories", categoryRoutes);
-app.use("scripta-backend/v1/products", productRoutes);
-app.use("scripta-backend/v1/users", userRoutes);
-app.use("scripta-backend/v1/favoritos", favoritosRoutes);
-
+app.use("/scripta-backend/v1/auth", authRoutes);
+app.use("/scripta-backend/v1/categories", categoryRoutes);
+app.use("/scripta-backend/v1/products", productRoutes);
+app.use("/scripta-backend/v1/users", userRoutes);
+app.use("/scripta-backend/v1/favoritos", favoritosRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
+
+// Solo iniciar el servidor si NO estamos en ambiente de test
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+  });
+}
+
+export default app;
