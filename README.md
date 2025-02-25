@@ -60,14 +60,20 @@ CREATE TABLE detalles_pedido (
   precio_unitario INT
 );
 
-
-
 CREATE TABLE productos_favoritos (
   id_favorito BIGINT PRIMARY KEY,
   id_usuario BIGINT REFERENCES usuarios(id_usuario),
   id_producto BIGINT REFERENCES productos(id_producto),
   fecha_agregado DATE
 );
+
+CREATE TABLE administrador (
+  usuario VARCHAR(100) PRIMARY KEY,
+  contraseña VARCHAR(255) NOT NULL
+);
+
+INSERT INTO administrador (usuario, contraseña)
+VALUES ('juanadmin', 'contrseñadejuan');
 ```
 
 # Endpoints de la API
