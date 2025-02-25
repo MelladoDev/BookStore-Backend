@@ -1,6 +1,6 @@
 # Backend para Aplicación de E-commerce
 
-Este proyecto implementa el backend para una aplicación de e-commerce. El sistema gestiona usuarios, pedidos, carritos, productos, categorías, métodos de pago y productos favoritos, permitiendo el manejo completo de las operaciones típicas de una tienda en línea.
+Este proyecto implementa el backend para una aplicación de e-commerce. El sistema gestiona usuarios, pedidos,  productos, categorías y productos favoritos, permitiendo el manejo completo de las operaciones típicas de una tienda en línea.
 
 ## Descripción del Proyecto
 
