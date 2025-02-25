@@ -68,6 +68,7 @@ CREATE TABLE productos_favoritos (
   id_producto BIGINT REFERENCES productos(id_producto),
   fecha_agregado DATE
 );
+```
 
 # Endpoints de la API
 
@@ -89,10 +90,10 @@ CREATE TABLE productos_favoritos (
 # Estructura de .env
 
 ```
-    DATABASE_URL=
+DATABASE_URL=
 
-    PORT=3000
+PORT=3000
 
-    JWT_SECRET = 
+JWT_SECRET = 
 ```
 
