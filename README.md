@@ -5,6 +5,7 @@ Este proyecto implementa el backend para una aplicación de e-commerce. El siste
 ## Descripción del Proyecto
 
 El backend está diseñado para:
+
 - Administrar la información de los usuarios y sus registros.
 - Procesar pedidos y detallar productos solicitados .
 - Manejar favoritos de los usuarios.
@@ -76,7 +77,7 @@ INSERT INTO administrador (usuario, contraseña)
 VALUES ('juanadmin', 'contrseñadejuan');
 ```
 
-# Endpoints de la API
+## Endpoints de la API
 
 - **Autenticación**  
   - Base: `/scripta-backend/v1/auth`
@@ -93,13 +94,12 @@ VALUES ('juanadmin', 'contrseñadejuan');
 - **Favoritos**  
   - Base: `/scripta-backend/v1/favoritos`
 
-# Estructura de .env
+## Estructura de .env
 
-```
+```js
 DATABASE_URL=
 
 PORT=3000
 
 JWT_SECRET = 
 ```
-
