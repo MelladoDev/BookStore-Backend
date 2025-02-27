@@ -27,7 +27,7 @@ describe("TEST: Autenticacion", () => {
 
   test("✅ Debe iniciar sesión y recibir un token", async () => {
     const res = await request(app)
-      .post("/scripta-backend/v1/auth/login")
+      .post("/scripta-backend/v1/auth")
       .send({
         correo_electronico: "loginuser@example.com",
         contraseña: "loginpassword"
