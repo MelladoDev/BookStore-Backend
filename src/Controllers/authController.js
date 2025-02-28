@@ -37,8 +37,8 @@ class AuthController {
 
       res.json({ message: "Inicio de sesión exitoso", token });
     } catch (error) {
-      res.status(500).json({ error: "Error al iniciar sesión" });
-    }
+        return res.status(500).json({ error: "Error al iniciar sesión" });
+      }
   }
 }
 

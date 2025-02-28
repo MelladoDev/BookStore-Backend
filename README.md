@@ -77,6 +77,10 @@ INSERT INTO administrador (usuario, contraseña)
 VALUES ('juanadmin', 'contrseñadejuan');
 ```
 
+## Swagger
+
+- [Documentación de la API con Swagger en local](http://localhost:3000/api-docs)
+
 ## Endpoints de la API
 
 - **Autenticación**  

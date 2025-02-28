@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { config } from "dotenv";
-
+import { specs, swaggerUi } from './swagger.js'
 import authRoutes from "./src/Routes/authRoutes.js";
 import categoryRoutes from "./src/Routes/categoryRoutes.js"; 
 import handleLog from "./src/Middlewares/handleLog.js";
@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(handleLog);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/scripta-backend/v1/auth", authRoutes);
 app.use("/scripta-backend/v1/categories", categoryRoutes);
 app.use("/scripta-backend/v1/products", productRoutes);
