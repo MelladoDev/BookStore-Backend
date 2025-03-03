@@ -38,7 +38,7 @@ class UsuarioController {
   static async update(req, res) {
     try {
       const usuarioActualizado = await UsuarioModel.update(
-        req.params.id_usuario,
+        req.params.id,
         req.body
       );
       if (!usuarioActualizado) {
