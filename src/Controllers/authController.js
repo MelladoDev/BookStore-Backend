@@ -34,7 +34,7 @@ class AuthController {
           expiresIn: "1h",
         }
       );
-
+      console.log("Objeto usuario:", usuario);
       res.json({ message: "Inicio de sesión exitoso", token });
     } catch (error) {
         return res.status(500).json({ error: "Error al iniciar sesión" });

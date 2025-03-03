@@ -1,48 +1,52 @@
-import {
-  getPurchaseHistoryByUser,
-  getPurchaseDetailsByOrderId,
-  createPurchase,
-} from "../Models/PurchaseHistory.js";
+import PurchaseHistory from "../Models/PurchaseHistory.js";
 
-export const getUserPurchaseHistory = async (req, res) => {
-  const { id_usuario } = req.params;
-  try {
-    const history = await getPurchaseHistoryByUser(id_usuario);
-    res.json(history);
-  } catch (error) {
-    console.error("Error al obtener historial de compras:", error);
-    res
-      .status(500)
-      .json({ error: "No se pudo obtener el historial de compras" });
+class PurchaseHistoryController {
+  // Obtiene todo el historial (puede servir para admin o para análisis)
+  static async getAll(req, res) {
+    try {
+      const usuarios = await PurchaseHistory.getAll();
+      res.json(usuarios);
+    } catch (error) {
+      console.error("Error al obtener todos los historiales:", error);
+      res.status(500).json({ error: "Error al obtener usuarios" });
+    }
   }
-};
 
-export const getOrderDetails = async (req, res) => {
-  const { id_pedido } = req.params;
-  try {
-    const details = await getPurchaseDetailsByOrderId(id_pedido);
-    res.json(details);
-  } catch (error) {
-    console.error("Error al obtener detalles del pedido:", error);
-    res
-      .status(500)
-      .json({ error: "No se pudo obtener los detalles del pedido" });
+  // Obtiene el historial de compras de un usuario específico
+  static async getUserPurchaseHistory(req, res) {
+    const { id_usuario } = req.params;
+    try {
+      const history = await getPurchaseHistoryByUser(id_usuario);
+      res.json(history);
+    } catch (error) {
+      console.error("Error al obtener historial de compras:", error);
+      res.status(500).json({ error: "No se pudo obtener el historial de compras" });
+    }
   }
-};
 
-export const createNewPurchase = async (req, res) => {
-  const { id_usuario, fecha_pedido, total, estado, detalles } = req.body;
-  try {
-    const result = await createPurchase(
-      id_usuario,
-      fecha_pedido,
-      total,
-      estado,
-      detalles
-    );
-    res.status(201).json(result);
-  } catch (error) {
-    console.error("Error al registrar la compra:", error);
-    res.status(500).json({ error: "No se pudo registrar la compra" });
+  // Obtiene los detalles de un pedido específico
+  static async getOrderDetails(req, res) {
+    const { id_pedido } = req.params;
+    try {
+      const details = await getPurchaseDetailsByOrderId(id_pedido);
+      res.json(details);
+    } catch (error) {
+      console.error("Error al obtener detalles del pedido:", error);
+      res.status(500).json({ error: "No se pudo obtener los detalles del pedido" });
+    }
   }
-};
+
+  // Crea una nueva compra
+  static async createNewPurchase(req, res) {
+    const { id_usuario, fecha_pedido, total, estado, detalles } = req.body;
+    try {
+      const result = await createPurchase(id_usuario, fecha_pedido, total, estado, detalles);
+      res.status(201).json(result);
+    } catch (error) {
+      console.error("Error al registrar la compra:", error);
+      res.status(500).json({ error: "No se pudo registrar la compra" });
+    }
+  }
+}
+
+export default PurchaseHistoryController;

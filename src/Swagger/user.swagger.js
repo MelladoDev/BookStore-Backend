@@ -97,6 +97,7 @@
 *     responses:
 *       '200':
 *         description: Usuario actualizado exitosamente
+
 *   delete:
 *     summary: Eliminar un usuario
 *     security:
@@ -110,4 +111,21 @@
 *     responses:
 *       '204':
 *         description: Usuario eliminado exitosamente
+*/
+/** 
+* @swagger
+* /users/me:
+*  get:
+*    summary: Obtener la información del usuario autenticado
+*    security:
+*      - BearerAuth: []
+*    responses:
+*      '200':
+*        description: Información del usuario autenticado obtenida exitosamente
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#/components/schemas/Usuario'
+*      '401':
+*        description: No autorizado, token de autenticación inválido o ausente
 */
