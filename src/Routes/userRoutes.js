@@ -4,6 +4,7 @@ import { verifyToken } from '../Middlewares/authMiddleware.js';
 
 const router = express.Router();
 
+router.get('/me', verifyToken, UsuarioController.getMe);
 router.get('/', verifyToken, UsuarioController.getAll);
 router.get('/:id',verifyToken, UsuarioController.getById);
 router.post('/', UsuarioController.create);

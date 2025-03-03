@@ -1,4 +1,6 @@
 import UsuarioModel from "../Models/userModel.js";
+import FavoritosModel from "../Models/favoriteModel.js";
+import PurchaseHistory from "../Models/PurchaseHistory.js";
 
 class UsuarioController {
   static async getAll(req, res) {
@@ -12,7 +14,7 @@ class UsuarioController {
 
   static async getById(req, res) {
     try {
-      const usuario = await UsuarioModel.getById(req.params.id);
+      const usuario = await UsuarioModel.getById(req.params.id_usuario);
       if (!usuario) {
         return res.status(404).json({ error: "Usuario no encontrado" });
       }
@@ -28,7 +30,7 @@ class UsuarioController {
       res.status(201).json(nuevoUsuario);
     } catch (err) {
       console.error("Error al crear usuario:", err);
-    console.error(err.stack);
+      console.error(err.stack);
       res.status(500).json({ error: "Error al crear el usuario" });
     }
   }
@@ -36,7 +38,7 @@ class UsuarioController {
   static async update(req, res) {
     try {
       const usuarioActualizado = await UsuarioModel.update(
-        req.params.id,
+        req.params.id_usuario,
         req.body
       );
       if (!usuarioActualizado) {
@@ -50,13 +52,41 @@ class UsuarioController {
 
   static async delete(req, res) {
     try {
-      const usuarioEliminado = await UsuarioModel.delete(req.params.id);
+      const usuarioEliminado = await UsuarioModel.delete(req.params.id_usuario);
       if (!usuarioEliminado) {
         return res.status(404).json({ error: "Usuario no encontrado" });
       }
       res.json({ message: "Usuario eliminado correctamente" });
     } catch (err) {
       res.status(500).json({ error: "Error al eliminar el usuario" });
+    }
+  }
+
+  // Metodo para GET /user/me
+  static async getMe(req, res) {
+    try {
+      const userId = req.user.id_usuario;
+      const usuario = await UsuarioModel.getById(userId);
+      if (!usuario) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+
+      const purchaseHistory = await PurchaseHistory.getAllByUser(userId);
+      const favoritos = await FavoritosModel.getAllByUser(userId);
+
+      let response = {
+        userType: "user",
+        info: usuario,
+        purchaseHistory,
+        favoritos,
+      };
+
+      res.json(response);
+    } catch (err) {
+      console.error("Error en getMe:", err);
+      res
+        .status(500)
+        .json({ error: "Error al obtener información del usuario" });
     }
   }
 }

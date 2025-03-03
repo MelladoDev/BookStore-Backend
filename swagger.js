@@ -65,6 +65,24 @@ const options = {
             fecha_agregado: { type: 'string', format: 'date' },
           },
         },
+        Admin: {
+          type: 'object',
+          properties: {
+            id: { type: 'integer' },
+            id_usuario: { type: 'integer' },
+            usuario: { type: 'string' },
+            contraseña: { type: 'string' },
+          },
+        },
+        AdminInput: {
+          type: 'object',
+          properties: {
+            userId: { type: 'integer' },
+            usuario: { type: 'string' },
+            contraseña: { type: 'string' },
+          },
+          required: ['userId', 'usuario', 'contraseña'],
+        },
       },
     },
   },
