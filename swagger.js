@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
         {
-          url: '/scripta-backend/v1',
+          url: 'https://bookstore-backend-bw7r.onrender.com/scripta-backend/v1',
         },
     ],
     components: {
