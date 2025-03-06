@@ -40,7 +40,7 @@ class PurchaseHistoryController {
   static async createNewPurchase(req, res) {
     const { id_usuario, fecha_pedido, total, estado, detalles } = req.body;
     try {
-      const result = await createPurchase(id_usuario, fecha_pedido, total, estado, detalles);
+      const result = await PurchaseHistory.createPurchase(id_usuario, fecha_pedido, total, estado, detalles);
       res.status(201).json(result);
     } catch (error) {
       console.error("Error al registrar la compra:", error);
