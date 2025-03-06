@@ -16,7 +16,7 @@ class PurchaseHistoryController {
   static async getUserPurchaseHistory(req, res) {
     const { id_usuario } = req.params;
     try {
-      const history = await PurchaseHistory.getPurchaseHistoryByUser(id_usuario);
+      const history = await PurchaseHistory.getAllByUser(id_usuario);
       res.json(history);
     } catch (error) {
       console.error("Error al obtener historial de compras:", error);
@@ -28,7 +28,7 @@ class PurchaseHistoryController {
   static async getOrderDetails(req, res) {
     const { id_pedido } = req.params;
     try {
-      const details = await PurchaseHistory.getPurchaseDetailsByOrderId(id_pedido);
+      const details = await PurchaseHistory.getDetailsByOrderId(id_pedido);
       res.json(details);
     } catch (error) {
       console.error("Error al obtener detalles del pedido:", error);
