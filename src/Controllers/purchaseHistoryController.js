@@ -2,7 +2,7 @@ import PurchaseHistory from "../Models/PurchaseHistory.js";
 
 class PurchaseHistoryController {
   // Obtiene todo el historial (puede servir para admin o para análisis)
-  static async getAll(req, res) {
+  static async PurchgetAll(req, res) {
     try {
       const usuarios = await PurchaseHistory.getAll();
       res.json(usuarios);
@@ -16,7 +16,7 @@ class PurchaseHistoryController {
   static async getUserPurchaseHistory(req, res) {
     const { id_usuario } = req.params;
     try {
-      const history = await getPurchaseHistoryByUser(id_usuario);
+      const history = await PurchaseHistory.getPurchaseHistoryByUser(id_usuario);
       res.json(history);
     } catch (error) {
       console.error("Error al obtener historial de compras:", error);
@@ -28,7 +28,7 @@ class PurchaseHistoryController {
   static async getOrderDetails(req, res) {
     const { id_pedido } = req.params;
     try {
-      const details = await getPurchaseDetailsByOrderId(id_pedido);
+      const details = await PurchaseHistory.getPurchaseDetailsByOrderId(id_pedido);
       res.json(details);
     } catch (error) {
       console.error("Error al obtener detalles del pedido:", error);
