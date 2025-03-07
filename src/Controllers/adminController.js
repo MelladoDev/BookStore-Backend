@@ -20,13 +20,20 @@ class AdminController {
       res.status(500).json({ error: "Error interno del servidor" });
     }
   }
+ 
   static async createAdmin(req, res) {
     try {
-      const nuevoAdmin = await AdminModel.createAdmin(req.body);
-      res.status(201).json({ message: "Administrador creado exitosamente", admin: nuevoAdmin });  
-      
+      console.log("Cuerpo del request:", req.body); // Depuración
+      const { userId, usuario, contraseña } = req.body;
+
+      if (!userId || !usuario || !contraseña) {
+        return res.status(400).json({ error: "Todos los campos son obligatorios" });
+      }
+
+      const admin = await AdminModel.createAdmin(userId, usuario, contraseña);
+      res.status(201).json(admin);
     } catch (error) {
-      console.error("Error al crear administrador:", error);
+      console.error("Error al crear administrador:", error.message);
       res.status(500).json({ error: error.message });
     }
   }
