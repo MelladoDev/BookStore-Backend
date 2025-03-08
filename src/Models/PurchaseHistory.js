@@ -28,6 +28,15 @@ class PurchaseHistory {
   try {
     await client.query("BEGIN");
 
+   const stockResult = await client.query(
+     "UPDATE productos SET stock = stock - $1 WHERE id = $2 AND stock >= $1 RETURNING stock",
+     [cantidad, productId]
+      );
+
+      if (stockResult.rowCount === 0) {
+         throw new Error("Stock insuficiente.");
+      }
+
     const pedidoQuery = `INSERT INTO pedidos (id_usuario, fecha_pedido, total, estado) 
                          VALUES ($1, $2, $3, $4) RETURNING id_pedido`;
     const pedidoResult = await client.query(pedidoQuery, [
