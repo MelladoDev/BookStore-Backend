@@ -23,7 +23,7 @@ class PurchaseHistory {
   }
 
   // Crear un nuevo pedido con detalles
- static async createPurchase(userId, fecha_pedido, total, estado, detalles) {
+ static async createPurchase(userId, fecha_pedido, total, estado, detalles, cantidad) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
