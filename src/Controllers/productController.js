@@ -32,10 +32,11 @@ export const getProduct = async (req, res) => {
 
 export const createNewProduct = async (req, res) => {
   try {
-    const { nombre, descripcion, precio, stock, imagen, id_categoria } =
+    const { nombre, autor, descripcion, precio, stock, imagen, id_categoria } =
       req.body;
     const newProduct = await createProduct(
       nombre,
+      autor,
       descripcion,
       precio,
       stock,
@@ -52,11 +53,12 @@ export const createNewProduct = async (req, res) => {
 export const updateProductById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, descripcion, precio, stock, imagen, id_categoria } =
+    const { nombre, autor, descripcion, precio, stock, imagen, id_categoria } =
       req.body;
     const updatedProduct = await updateProduct(
       id,
       nombre,
+      autor,
       descripcion,
       precio,
       stock,
