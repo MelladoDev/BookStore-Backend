@@ -23,14 +23,14 @@ class PurchaseHistory {
   }
 
   // Crear un nuevo pedido con detalles
- static async createPurchase(userId, fecha_pedido, total, estado, detalles, cantidad) {
+ static async createPurchase(id_usuario, fecha_pedido, total, estado, detalles, cantidad) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
    const stockResult = await client.query(
      "UPDATE productos SET stock = stock - $1 WHERE id = $2 AND stock >= $1 RETURNING stock",
-     [cantidad, productId]
+     [cantidad, id_producto]
       );
 
       if (stockResult.rowCount === 0) {
@@ -40,7 +40,7 @@ class PurchaseHistory {
     const pedidoQuery = `INSERT INTO pedidos (id_usuario, fecha_pedido, total, estado) 
                          VALUES ($1, $2, $3, $4) RETURNING id_pedido`;
     const pedidoResult = await client.query(pedidoQuery, [
-      userId,
+      id_usuario,
       fecha_pedido,
       total,
       estado,
