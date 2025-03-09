@@ -23,20 +23,23 @@ class PurchaseHistory {
   }
 
   // Crear un nuevo pedido con detalles
- static async createPurchase(id_usuario, fecha_pedido, total, estado, detalles, cantidad) {
+static async createPurchase(id_usuario, fecha_pedido, total, estado, detalles) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
-   const stockResult = await client.query(
-     "UPDATE productos SET stock = stock - $1 WHERE id = $2 AND stock >= $1 RETURNING stock",
-     [cantidad, id_producto]
+    // Iterar sobre cada detalle para actualizar el stock correspondiente a cada producto.
+    for (const detalle of detalles) {
+      const stockResult = await client.query(
+        "UPDATE productos SET stock = stock - $1 WHERE id_producto = $2 AND stock >= $1 RETURNING stock",
+        [detalle.cantidad, detalle.id_producto]
       );
-
       if (stockResult.rowCount === 0) {
-         throw new Error("Stock insuficiente.");
+        throw new Error("Stock insuficiente para el producto con id " + detalle.id_producto);
       }
+    }
 
+    // Insertar el pedido y obtener el id del pedido creado.
     const pedidoQuery = `INSERT INTO pedidos (id_usuario, fecha_pedido, total, estado) 
                          VALUES ($1, $2, $3, $4) RETURNING id_pedido`;
     const pedidoResult = await client.query(pedidoQuery, [
@@ -47,6 +50,7 @@ class PurchaseHistory {
     ]);
     const id_pedido = pedidoResult.rows[0].id_pedido;
 
+    // Insertar cada detalle del pedido.
     for (const detalle of detalles) {
       await client.query(
         `INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad, precio_unitario) 
@@ -69,6 +73,7 @@ class PurchaseHistory {
     client.release();
   }
 }
+
 
 
 };
