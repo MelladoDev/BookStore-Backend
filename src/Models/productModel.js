@@ -26,7 +26,7 @@ export const createProduct = async (
   imagen,
   id_categoria
 ) => {
-  result = await pool.query(
+ const result = await pool.query(
     "INSERT INTO productos (nombre, autor, descripcion, precio, stock, imagen, id_categoria, fecha_adicion) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_DATE) RETURNING *",
     [nombre, autor, descripcion, precio, stock, imagen, id_categoria]
   );
@@ -44,7 +44,7 @@ export const updateProduct = async (
   id_categoria
 ) => {
   const result = await pool.query(
-    "UPDATE productos SET nombre = $1, autor = $2, descripcion = $3, precio = $4, stock = $5, imagen = $6, id_categoria = $7, WHERE id_producto = $8 RETURNING *",
+    "UPDATE productos SET nombre = $1, autor = $2, descripcion = $3, precio = $4, stock = $5, imagen = $6, id_categoria = $7 WHERE id= $8 RETURNING *",
     [nombre, autor, descripcion, precio, stock, imagen, id_categoria, id_producto]
   );
   return result.rows[0];
