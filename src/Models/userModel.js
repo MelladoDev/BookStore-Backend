@@ -40,15 +40,15 @@ class UsuarioModel {
     }
   }
 
-  static async update(id, { nombre, correo_electronico, direccion, telefono }) 
-    const result = await pool.query(
-      `UPDATE usuarios 
-       SET nombre = $1, correo_electronico = $2, direccion = $3, telefono = $4,  
-       WHERE id_usuario = $5 RETURNING *`,
-      [nombre, correo_electronico, direccion, telefono, id]
-    );
-    return result.rows[0];
-  }
+static async update(id, { nombre, correo_electronico, direccion, telefono }) {
+  const result = await pool.query(
+    `UPDATE usuarios 
+     SET nombre = $1, correo_electronico = $2, direccion = $3, telefono = $4 
+     WHERE id_usuario = $5 RETURNING *`,
+    [nombre, correo_electronico, direccion, telefono, id]
+  );
+  return result.rows[0];
+}
 
   static async delete(id) {
     const result = await pool.query(
