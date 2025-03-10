@@ -45,7 +45,7 @@ export const updateProduct = async (
 ) => {
   const result = await pool.query(
     "UPDATE productos SET nombre = $1, autor = $2, descripcion = $3, precio = $4, stock = $5, imagen = $6, id_categoria = $7 WHERE id= $8 RETURNING *",
-    [nombre, autor, descripcion, precio, stock, imagen, id_categoria, id_producto]
+    [nombre, autor, descripcion, precio, stock, imagen, id_categoria, id]
   );
   return result.rows[0];
 };
